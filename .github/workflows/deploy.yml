@@ -55,6 +55,18 @@ jobs:
         run: |
           find out -type f -name "*.html" -exec sed -i 's|href="/_next/|href="/devio/_next/|g' {} \;
           find out -type f -name "*.html" -exec sed -i 's|src="/_next/|src="/devio/_next/|g' {} \;
+      - name: Extract CSS filename and ensure it's loaded
+        run: |
+          # Find the generated CSS filename
+          CSS_FILE=$(find out/_next/static/css -name "*.css" | head -n 1)
+          if [ -n "$CSS_FILE" ]; then
+            CSS_FILENAME=$(basename "$CSS_FILE")
+            # Add explicit CSS link to all HTML files if not already present
+            find out -type f -name "*.html" -exec sed -i "s|</head>|<link rel=\"stylesheet\" href=\"/devio/_next/static/css/$CSS_FILENAME\" />\n</head>|g" {} \;
+            echo "Added CSS link for $CSS_FILENAME to HTML files"
+          else
+            echo "Warning: No CSS file found in out/_next/static/css"
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

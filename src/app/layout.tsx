@@ -63,6 +63,11 @@ export default function RootLayout({
       <head>
         <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
         <link rel="apple-touch-icon" href={`${basePath}/apple-touch-icon.png`} />
+        {/* 
+          This link is a fallback to ensure Tailwind CSS is loaded properly in GitHub Pages.
+          The GitHub workflow will replace 'app.css' with the actual generated filename.
+        */}
+        <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} precedence="high" />
         <Script
           id="schema-structured-data"
           type="application/ld+json"
