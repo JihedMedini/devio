@@ -41,11 +41,16 @@ jobs:
         run: npm ci
       - name: Build with Next.js
         run: npm run build
+        env:
+          # Add basePath to ensure assets load properly
+          NEXT_PUBLIC_BASE_PATH: /devio
       - name: Handle CNAME file
         run: |
           if [ -f "public/CNAME" ]; then
             cp public/CNAME out/
           fi
+      - name: Create .nojekyll file
+        run: touch out/.nojekyll
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

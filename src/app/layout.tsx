@@ -4,6 +4,8 @@ import "./globals.css";
 import "./animations.css";
 import Script from "next/script";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/devio';
+
 const inter = Inter({ 
   subsets: ["latin"],
   display: "swap",
@@ -19,13 +21,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://devio.fr",
+    url: "https://onedevio.me",
     title: "Devio | Solutions Digitales sur Mesure pour Votre Entreprise",
     description: "Transformez vos idées en solutions digitales performantes avec Devio. Développement web, applications mobiles, conseil technologique - 40% plus rapide que la moyenne du marché.",
     siteName: "Devio",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: `${basePath}/images/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "Devio - Solutions Digitales sur Mesure"
@@ -36,16 +38,16 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Devio | Solutions Digitales sur Mesure pour Votre Entreprise",
     description: "Transformez vos idées en solutions digitales performantes avec Devio. Développement web, applications mobiles, conseil technologique.",
-    images: ["/images/twitter-image.jpg"]
+    images: [`${basePath}/images/twitter-image.jpg`]
   },
   alternates: {
-    canonical: "https://devio.fr",
+    canonical: "https://onedevio.me/devio",
     languages: {
-      'fr': 'https://devio.fr',
-      'en': 'https://devio.fr/en'
+      'fr': 'https://onedevio.me/devio',
+      'en': 'https://onedevio.me/devio/en'
     }
   },
-  metadataBase: new URL('https://devio.fr'),
+  metadataBase: new URL('https://onedevio.me'),
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   themeColor: "#064663",
   category: "technology"
@@ -59,8 +61,8 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
+        <link rel="apple-touch-icon" href={`${basePath}/apple-touch-icon.png`} />
         <Script
           id="schema-structured-data"
           type="application/ld+json"
@@ -69,8 +71,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Devio",
-              "url": "https://devio.fr",
-              "logo": "https://devio.fr/logo.png",
+              "url": "https://onedevio.me/devio",
+              "logo": "https://onedevio.me/devio/logo.png",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+33-1-23-45-67-89",
