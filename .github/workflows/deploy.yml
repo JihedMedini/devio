@@ -39,6 +39,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: npm ci
+      - name: Process Tailwind CSS
+        run: npx tailwindcss -i ./src/app/globals.css -o ./public/styles.css --minify
       - name: Build with Next.js
         run: npm run build
         env:
@@ -49,8 +51,16 @@ jobs:
           if [ -f "public/CNAME" ]; then
             cp public/CNAME out/
           fi
+      - name: Copy public CSS to output directory
+        run: |
+          mkdir -p out/_next/static/css
+          cp public/styles.css out/_next/static/css/app.css
       - name: Create .nojekyll file
         run: touch out/.nojekyll
+      - name: Fix static asset paths
+        run: |
+          find out -type f -name "*.html" -exec sed -i 's|href="/_next/|href="/devio/_next/|g' {} \;
+          find out -type f -name "*.html" -exec sed -i 's|src="/_next/|src="/devio/_next/|g' {} \;
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

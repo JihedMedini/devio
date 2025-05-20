@@ -53,6 +53,46 @@ export const metadata: Metadata = {
   category: "technology"
 };
 
+// Critical CSS as a fallback
+const criticalCss = `
+  :root {
+    --background: 240 249 255;
+    --foreground: 15 23 42;
+    --primary: 6 70 99;
+    --secondary: 65 208 209;
+  }
+  
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  
+  .btn-primary {
+    background-color: rgb(var(--primary));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+  }
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -63,6 +103,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
         <link rel="apple-touch-icon" href={`${basePath}/apple-touch-icon.png`} />
+        <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} precedence="high" />
+        <style dangerouslySetInnerHTML={{ __html: criticalCss }} />
         <Script
           id="schema-structured-data"
           type="application/ld+json"
