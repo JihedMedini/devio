@@ -3,5 +3,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-Host: https://devio.fr
-Sitemap: https://devio.fr/sitemap.xml
+Host: https://onedevio.me
+Sitemap: https://onedevio.me/sitemap.xml
