@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Host: https://devio.fr
+Sitemap: https://devio.fr/sitemap.xml
