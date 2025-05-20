@@ -7,8 +7,6 @@ const nextConfig = {
   basePath: '/devio',
   assetPrefix: '/devio',
   trailingSlash: true,
-  // Enable static exports and optimize for GitHub Pages
-  distDir: 'out',
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -21,14 +19,6 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  // This is key for static sites
-  experimental: {
-    images: {
-      unoptimized: true,
-    },
-  },
-  // Ensure all CSS is inlined
-  optimizeFonts: true,
 }
 
 module.exports = nextConfig 
