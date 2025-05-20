@@ -1,20 +1,32 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: 240 249 255;
+  --foreground: 15 23 42;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+  --primary: 6 70 99;
+  --primary-foreground: 240 249 255;
+  --secondary: 65 208 209;
+  --secondary-foreground: 240 249 255;
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139;
+  --accent: 4 41 58;
+  --accent-foreground: 240 249 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 6 70 99;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #04293A;
     --foreground: #ededed;
   }
 }
@@ -22,5 +34,228 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white px-4 py-2 rounded-md font-medium 
+           transition-all duration-300 hover:bg-primary/90 hover:shadow-md 
+           active:scale-95 active:shadow-none hardware-accelerated;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white px-4 py-2 rounded-md font-medium 
+           transition-all duration-300 hover:bg-secondary/90 hover:shadow-md 
+           active:scale-95 active:shadow-none hardware-accelerated;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-5xl font-bold mb-8;
+  }
+  
+  .section-subtitle {
+    @apply text-xl text-gray-600 mb-12 max-w-3xl;
+  }
+
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-[#41D0D1] to-[#2CA6A4];
+  }
+
+  .custom-border {
+    @apply border border-[#41D0D1]/20 hover:border-[#41D0D1]/50 transition-all duration-300;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .hover-card {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-foreground px-4 py-2 rounded-md font-medium 
+           transition-all duration-300 hover:bg-gray-100 
+           active:scale-95 hardware-accelerated;
+  }
+
+  .spinner {
+    @apply animate-spin rounded-full border-4 border-muted border-t-primary h-8 w-8;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(1.1);
+  }
+  66% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite linear;
+  background: linear-gradient(to right, rgba(65, 208, 209, 0) 0%, rgba(65, 208, 209, 0.3) 50%, rgba(65, 208, 209, 0) 100%);
+  background-size: 1000px 100%;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Add performance optimization classes at the end of the file */
+
+/* Performance optimization for animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize the Nav for better performance */
+nav {
+  will-change: transform, opacity, background-color;
+  transform: translateZ(0);
+}
+
+/* Optimize the smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-bounce,
+  .animate-spin,
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize image loading */
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@layer base {
+  * {
+    @apply border-border-color;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes slideInFromBottom {
+  from { 
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideInFromBottom 0.5s ease-out forwards;
 }
