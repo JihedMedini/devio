@@ -48,9 +48,16 @@ jobs:
         run: |
           if [ -f "public/CNAME" ]; then
             cp public/CNAME out/
+            # Also copy the CNAME to root level out
+            cp public/CNAME out/devio/
           fi
       - name: Create .nojekyll file
         run: touch out/.nojekyll
+      - name: Copy index.html and 404.html to root
+        run: |
+          # Copy the index.html and 404.html to the root directory
+          cp public/index.html out/
+          cp public/404.html out/
       - name: Fix static asset paths
         run: |
           find out -type f -name "*.html" -exec sed -i 's|href="/_next/|href="/devio/_next/|g' {} \;
