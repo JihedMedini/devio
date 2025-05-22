@@ -45,9 +45,6 @@ jobs:
           rm -rf out
       - name: Build with Next.js
         run: npm run build
-        env:
-          # Add basePath to ensure assets load properly
-          NEXT_PUBLIC_BASE_PATH: /devio
       - name: Handle CNAME file
         run: |
           if [ -f "public/CNAME" ]; then
@@ -56,30 +53,6 @@ jobs:
           fi
       - name: Create .nojekyll file
         run: touch out/.nojekyll
-      - name: Copy index.html and 404.html to root
-        run: |
-          # Copy the index.html and 404.html to the root directory
-          cp public/index.html out/
-          cp public/404.html out/
-      - name: Fix static asset paths - improved
-        run: |
-          # More comprehensive path fixes
-          find out -type f -name "*.html" -exec sed -i 's|href="/_next/|href="/devio/_next/|g' {} \;
-          find out -type f -name "*.html" -exec sed -i 's|src="/_next/|src="/devio/_next/|g' {} \;
-          
-          # Handle additional path issues in JS files
-          find out/_next/static -type f -name "*.js" -exec sed -i 's|"/_next/static/|"/devio/_next/static/|g' {} \;
-          
-          # Fix references to images and other assets
-          find out -type f -name "*.js" -exec sed -i 's|src:"/|src:"/devio/|g' {} \;
-          find out -type f -name "*.js" -exec sed -i 's|src="/|src="/devio/|g' {} \;
-          find out -type f -name "*.js" -exec sed -i 's|href="/|href="/devio/|g' {} \;
-          
-          # Make sure all JSON data with paths are correctly updated
-          find out -type f -name "*.js" -exec sed -i 's|"url":"/|"url":"/devio/|g' {} \;
-          
-          echo "Fixed paths in HTML and JS files"
-          
       - name: Extract CSS filename and ensure it's loaded
         run: |
           # Find the generated CSS filename
@@ -87,35 +60,12 @@ jobs:
           if [ -n "$CSS_FILE" ]; then
             CSS_FILENAME=$(basename "$CSS_FILE")
             # Add explicit CSS link to all HTML files if not already present
-            find out -type f -name "*.html" -exec sed -i "s|</head>|<link rel=\"stylesheet\" href=\"/devio/_next/static/css/$CSS_FILENAME\" />\n</head>|g" {} \;
+            find out -type f -name "*.html" -exec sed -i "s|</head>|<link rel=\"stylesheet\" href=\"/_next/static/css/$CSS_FILENAME\" />\n</head>|g" {} \;
             echo "Added CSS link for $CSS_FILENAME to HTML files"
           else
             echo "Warning: No CSS file found in out/_next/static/css"
           fi
-          
-      - name: Copy static assets to devio directory for backward compatibility
-        run: |
-          # Create devio directory to ensure old paths still work
-          mkdir -p out/devio
-          
-          # Create a minimal index.html in the devio folder that redirects to main app
-          cat << EOF > out/devio/index.html
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta charset="utf-8">
-            <title>Redirecting...</title>
-            <meta http-equiv="refresh" content="0;url=/">
-            <script>window.location.href = '/';</script>
-          </head>
-          <body>
-            <p>Redirecting to main app...</p>
-          </body>
-          </html>
-          EOF
-          
-          echo "Created compatibility redirects"
-          
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

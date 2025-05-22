@@ -4,8 +4,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/devio',
-  assetPrefix: '/devio/',
   trailingSlash: true,
   typescript: {
     // !! WARN !!
@@ -18,10 +16,6 @@ const nextConfig = {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
-  },
-  // Ensure Next.js knows to publicRuntimeConfig
-  publicRuntimeConfig: {
-    basePath: '/devio',
   },
 }
 

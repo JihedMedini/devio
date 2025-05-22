@@ -4,9 +4,6 @@ import "./globals.css";
 import "./animations.css";
 import Script from "next/script";
 
-// Use consistent basePath everywhere
-const basePath = '/devio';
-
 const inter = Inter({ 
   subsets: ["latin"],
   display: "swap",
@@ -28,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Devio",
     images: [
       {
-        url: `${basePath}/images/og-image.jpg`,
+        url: `/images/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "Devio - Solutions Digitales sur Mesure"
@@ -39,13 +36,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Devio | Solutions Digitales sur Mesure pour Votre Entreprise",
     description: "Transformez vos idées en solutions digitales performantes avec Devio. Développement web, applications mobiles, conseil technologique.",
-    images: [`${basePath}/images/twitter-image.jpg`]
+    images: [`/images/twitter-image.jpg`]
   },
   alternates: {
-    canonical: "https://onedevio.me/devio",
+    canonical: "https://onedevio.me",
     languages: {
-      'fr': 'https://onedevio.me/devio',
-      'en': 'https://onedevio.me/devio/en'
+      'fr': 'https://onedevio.me',
+      'en': 'https://onedevio.me/en'
     }
   },
   metadataBase: new URL('https://onedevio.me'),
@@ -62,11 +59,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <head>
-        <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
-        <link rel="apple-touch-icon" href={`${basePath}/apple-touch-icon.png`} />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         
         {/* Force load stylesheet with explicit path */}
-        <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} precedence="high" />
+        <link rel="stylesheet" href="/_next/static/css/app.css" precedence="high" />
         
         <Script
           id="schema-structured-data"
@@ -76,8 +73,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Devio",
-              "url": "https://onedevio.me/devio",
-              "logo": "https://onedevio.me/devio/logo.png",
+              "url": "https://onedevio.me",
+              "logo": "https://onedevio.me/logo.png",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+33-1-23-45-67-89",
