@@ -4,13 +4,53 @@
   <meta charset="utf-8">
   <title>Redirecting to Devio</title>
   <script type="text/javascript">
-    // Redirect to /devio path
-    window.location.href = "/devio" + window.location.pathname.replace(/^\/?/, "/");
+    // Redirect to absolute URL with /devio path
+    var path = window.location.pathname.replace(/^\/?/, "/");
+    window.location.href = "https://onedevio.me/devio" + path;
   </script>
-  <meta http-equiv="refresh" content="0; url=/devio/">
+  <meta http-equiv="refresh" content="0; url=https://onedevio.me/devio/">
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f9ff;
+      color: #0f172a;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      padding: 20px;
+      border: 2px solid #064663;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #064663;
+    }
+    a {
+      display: inline-block;
+      background-color: #064663;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Redirecting...</h1>
-  <p>If you are not redirected automatically, please <a href="/devio/">click here</a>.</p>
+  <div class="container">
+    <h1>Redirection en cours...</h1>
+    <p>Si vous n'êtes pas redirigé automatiquement, veuillez <a href="https://onedevio.me/devio/">cliquer ici</a>.</p>
+  </div>
 </body>
 </html> 

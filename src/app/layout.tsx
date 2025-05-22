@@ -4,7 +4,8 @@ import "./globals.css";
 import "./animations.css";
 import Script from "next/script";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/devio';
+// Use consistent basePath everywhere
+const basePath = '/devio';
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -63,11 +64,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href={`${basePath}/favicon.ico`} sizes="any" />
         <link rel="apple-touch-icon" href={`${basePath}/apple-touch-icon.png`} />
-        {/* 
-          This link is a fallback to ensure Tailwind CSS is loaded properly in GitHub Pages.
-          The GitHub workflow will replace 'app.css' with the actual generated filename.
-        */}
+        
+        {/* Force load stylesheet with explicit path */}
         <link rel="stylesheet" href={`${basePath}/_next/static/css/app.css`} precedence="high" />
+        
         <Script
           id="schema-structured-data"
           type="application/ld+json"
@@ -101,7 +101,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }
