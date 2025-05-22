@@ -2,13 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Redirecting to Devio</title>
+  <title>Page Not Found | Devio</title>
+  <meta http-equiv="refresh" content="0; url=https://onedevio.me/">
   <script type="text/javascript">
-    // Redirect to absolute URL with /devio path
-    var path = window.location.pathname.replace(/^\/?/, "/");
-    window.location.href = "https://onedevio.me/devio" + path;
+    // Redirect to home page
+    window.location.href = "https://onedevio.me/";
   </script>
-  <meta http-equiv="refresh" content="0; url=https://onedevio.me/devio/">
   <style>
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
@@ -49,8 +48,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>Redirection en cours...</h1>
-    <p>Si vous n'êtes pas redirigé automatiquement, veuillez <a href="https://onedevio.me/devio/">cliquer ici</a>.</p>
+    <h1>Page non trouvée</h1>
+    <p>La page que vous recherchez n'existe pas. Vous allez être redirigé vers la page d'accueil.</p>
+    <a href="https://onedevio.me/">Retour à l'accueil</a>
   </div>
 </body>
 </html> 

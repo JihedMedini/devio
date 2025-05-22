@@ -39,12 +39,26 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: npm ci
+      - name: Debug application structure
+        run: |
+          echo "Current directory structure:"
+          find src -type f | sort
+          echo "Components directory:"
+          find src/components -type f 2>/dev/null || echo "No components directory found"
       - name: Clean previous builds
         run: |
           rm -rf .next
           rm -rf out
       - name: Build with Next.js
         run: npm run build
+      - name: Verify build output
+        run: |
+          echo "Build output files:"
+          find out -type f | grep -v "\.git" | sort
+          echo "HTML files:"
+          find out -name "*.html" | sort
+          echo "Index.html content:"
+          cat out/index.html | head -20
       - name: Handle CNAME file
         run: |
           if [ -f "public/CNAME" ]; then
@@ -53,17 +67,23 @@ jobs:
           fi
       - name: Create .nojekyll file
         run: touch out/.nojekyll
-      - name: Extract CSS filename and ensure it's loaded
+      - name: Fix HTML paths if needed
         run: |
-          # Find the generated CSS filename
-          CSS_FILE=$(find out/_next/static/css -name "*.css" | head -n 1)
-          if [ -n "$CSS_FILE" ]; then
-            CSS_FILENAME=$(basename "$CSS_FILE")
+          # Ensure all asset references are correct in the HTML files
+          find out -type f -name "*.html" -exec sed -i 's|="/_next/|="/_next/|g' {} \;
+          find out -type f -name "*.html" -exec sed -i 's|="/"|="/"|g' {} \;
+          
+          # Check if we have any missing CSS references
+          echo "Checking for CSS files:"
+          CSS_FILES=$(find out/_next/static/css -name "*.css" 2>/dev/null)
+          echo "$CSS_FILES"
+          if [ -n "$CSS_FILES" ]; then
+            CSS_FILENAME=$(basename "$CSS_FILES" | head -1)
+            echo "Found CSS file: $CSS_FILENAME"
             # Add explicit CSS link to all HTML files if not already present
             find out -type f -name "*.html" -exec sed -i "s|</head>|<link rel=\"stylesheet\" href=\"/_next/static/css/$CSS_FILENAME\" />\n</head>|g" {} \;
-            echo "Added CSS link for $CSS_FILENAME to HTML files"
           else
-            echo "Warning: No CSS file found in out/_next/static/css"
+            echo "Warning: No CSS files found in out/_next/static/css"
           fi
 
       - name: Upload artifact
