@@ -51,9 +51,8 @@ jobs:
       - name: Handle CNAME file
         run: |
           if [ -f "public/CNAME" ]; then
+            # Copy CNAME to the root output directory
             cp public/CNAME out/
-            # Also copy the CNAME to root level out
-            cp public/CNAME out/devio/
           fi
       - name: Create .nojekyll file
         run: touch out/.nojekyll
