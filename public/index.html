@@ -22,10 +22,15 @@
         .container {
             max-width: 600px;
             padding: 20px;
+            border: 2px solid #064663;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         h1 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            color: #064663;
         }
         a {
             display: inline-block;
@@ -35,6 +40,14 @@
             text-decoration: none;
             border-radius: 4px;
             margin-top: 20px;
+            font-weight: bold;
+        }
+        .version {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #64748b;
         }
     </style>
 </head>
@@ -44,5 +57,6 @@
         <p>Vous allez être redirigé vers la page d'accueil...</p>
         <a href="/devio/">Aller à la page d'accueil</a>
     </div>
+    <div class="version">v1.1.0 (Update test)</div>
 </body>
 </html> 

@@ -14,8 +14,9 @@ import Footer from '@/components/layout/Footer';
 import Navbar from '@/components/layout/Navbar';
 
 export default function Home() {
+  // Added data-test-id attribute to verify our new deployment
   return (
-    <main>
+    <main data-test-id="latest-deployment-verification">
       <Navbar />
       <HeroSection />
       <ServiceSection />
