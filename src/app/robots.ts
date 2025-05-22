@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -7,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://devio.fr/sitemap.xml',
-    host: 'https://devio.fr',
+    sitemap: 'https://onedevio.me/devio/sitemap.xml',
+    host: 'https://onedevio.me',
   };
 } 

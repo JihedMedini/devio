@@ -1,14 +1,10 @@
-# Allow all crawlers
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-
-# Sitemap location
-Sitemap: https://devio.fr/sitemap.xml
-
-# Disallow admin areas
-User-agent: *
 Disallow: /admin/
 Disallow: /api/
+
+Sitemap: https://onedevio.me/devio/sitemap.xml
 
 # Crawl delay to prevent overloading the server
 User-agent: *
